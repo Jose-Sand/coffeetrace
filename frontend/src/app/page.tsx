@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getLotes, getActores } from '@/lib/api';
 
@@ -16,15 +19,19 @@ const ACTOR_ICONS: Record<string, string> = {
   TOSTADOR: '🔥',
 };
 
-export default async function Home() {
-  let lotes = [];
-  let actores = [];
+export default function Home() {
+  const [lotes, setLotes] = useState<any[]>([]);
+  const [actores, setActores] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  try {
-    [lotes, actores] = await Promise.all([getLotes(), getActores()]);
-  } catch (e) {
-    // Will show empty state
-  }
+  useEffect(() => {
+    Promise.all([getLotes(), getActores()])
+      .then(([l, a]) => {
+        setLotes(l);
+        setActores(a);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   const estadoStats = Object.keys(ESTADO_CONFIG).reduce((acc, estado) => {
     acc[estado] = lotes.filter((l: any) => l.estado === estado).length;
@@ -85,10 +92,14 @@ export default async function Home() {
             <span className="text-sm text-gray-500">{lotes.length} lotes registrados</span>
           </div>
 
-          {lotes.length === 0 ? (
+          {loading ? (
+            <div className="p-12 text-center">
+              <div className="text-4xl animate-spin mb-3">☕</div>
+              <p className="text-gray-400">Cargando lotes...</p>
+            </div>
+          ) : lotes.length === 0 ? (
             <div className="p-12 text-center">
               <p className="text-gray-400 text-lg">No hay lotes registrados</p>
-              <p className="text-gray-300 text-sm mt-2">Ejecuta el seed: <code className="bg-gray-100 px-2 py-1 rounded">npm run db:seed</code></p>
             </div>
           ) : (
             <div className="divide-y divide-gray-50">
