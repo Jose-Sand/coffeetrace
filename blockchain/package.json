@@ -1,0 +1,17 @@
+{
+  "name": "coffeetrace-blockchain",
+  "version": "1.0.0",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "node": "npx hardhat node",
+    "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
+    "test": "npx hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0",
+    "typescript": "^5.3.2",
+    "ts-node": "^10.9.2",
+    "@types/node": "^20.10.0"
+  }
+}

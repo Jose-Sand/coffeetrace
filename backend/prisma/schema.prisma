@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TipoActor {
+  FINCA
+  BENEFICIO
+  EXPORTADOR
+  TOSTADOR
+}
+
+enum EstadoLote {
+  COSECHADO
+  PROCESADO
+  EXPORTADO
+  TOSTADO
+  DISPONIBLE
+}
+
+model Actor {
+  id        String    @id @default(cuid())
+  nombre    String
+  tipo      TipoActor
+  wallet    String?
+  ubicacion String?
+  lotes     Lote[]
+  eventos   Evento[]
+  creadoEn  DateTime  @default(now())
+}
+
+model Lote {
+  id            String     @id @default(cuid())
+  codigo        String     @unique
+  origen        String
+  variedad      String
+  fechaCosecha  DateTime
+  estado        EstadoLote @default(COSECHADO)
+  pesoKg        Float      @default(0)
+  actorId       String
+  actor         Actor      @relation(fields: [actorId], references: [id])
+  eventos       Evento[]
+  lecturas      LecturaIoT[]
+  creadoEn      DateTime   @default(now())
+  txHash        String?
+}
+
+model Evento {
+  id        String    @id @default(cuid())
+  loteId    String
+  lote      Lote      @relation(fields: [loteId], references: [id])
+  actorId   String
+  actor     Actor     @relation(fields: [actorId], references: [id])
+  accion    String
+  datos     Json
+  timestamp DateTime  @default(now())
+  txHash    String?
+}
+
+model LecturaIoT {
+  id          String   @id @default(cuid())
+  loteId      String
+  lote        Lote     @relation(fields: [loteId], references: [id])
+  temperatura Float
+  humedad     Float
+  peso        Float
+  timestamp   DateTime @default(now())
+}

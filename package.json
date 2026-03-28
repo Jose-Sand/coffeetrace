@@ -1,0 +1,14 @@
+{
+  "name": "coffeetrace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:iot": "cd iot-simulator && python simulator.py",
+    "dev:blockchain": "cd blockchain && npx hardhat node",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install && cd ../blockchain && npm install",
+    "seed": "cd backend && npm run db:seed"
+  },
+  "workspaces": ["frontend", "backend", "blockchain"]
+}
