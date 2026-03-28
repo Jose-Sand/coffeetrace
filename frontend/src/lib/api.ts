@@ -20,6 +20,7 @@ export interface Lote {
   eventos?: Evento[];
   lecturas?: LecturaIoT[];
   _count?: { eventos: number };
+  txHash?: string;
 }
 
 export interface Evento {
