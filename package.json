@@ -10,5 +10,4 @@
     "install:all": "cd backend && npm install && cd ../frontend && npm install && cd ../blockchain && npm install",
     "seed": "cd backend && npm run db:seed"
   },
-  "workspaces": ["frontend", "backend", "blockchain"]
 }
