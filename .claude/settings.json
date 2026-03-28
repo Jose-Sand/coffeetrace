@@ -16,7 +16,9 @@
       "Bash(git commit:*)",
       "Bash(git config:*)",
       "Bash(gh auth:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_LJ8glohZYnk6@ep-winter-flower-andon3u8-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" npx prisma migrate deploy)",
+      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_LJ8glohZYnk6@ep-winter-flower-andon3u8-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" npm run db:seed)"
     ],
     "additionalDirectories": [
       "C:\\Users\\andre\\OneDrive\\Desktop\\CafeChain\\frontend\\src\\app\\lote"
