@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "node dist/index.js",
+    "startCommand": "npx ts-node --transpile-only src/index.ts",
     "restartPolicyType": "ON_FAILURE"
   }
 }
